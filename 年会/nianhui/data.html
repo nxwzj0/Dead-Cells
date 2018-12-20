@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+<title>2019年OCC年会</title>
+</head>
+<body onload="dataInit()">
+<script type="text/javascript">
+	function dataInit() {
+		var cash_big = {
+			name:"现金红包（200-499）",
+			count: 2
+		};
+		var one = new Array();
+		one.push(cash_big);
+
+		var shouhuan = {	
+			name:"小米手环",
+			count: 3
+		};
+		var taideng = {
+			name:"小米台灯",
+			count: 3
+		};
+		var two = new Array();
+		two.push(shouhuan);
+		two.push(taideng);
+
+		var tizhicheng = {
+			name:"华为智能体脂秤",
+			count: 5
+		};
+		var yinxiang = {
+			name:"天猫精灵智能网络音箱",
+			count: 5
+		};
+		var shuangjianbao = {
+			name:"小米双肩包",
+			count: 5
+		};
+		var three = new Array();
+		three.push(tizhicheng);
+		three.push(yinxiang);
+		three.push(shuangjianbao);
+
+		var yangshenghu = {
+			name:"养生壶",
+			count: 3
+		};
+		var yaokao = {
+			name:"小米腰靠",
+			count: 3
+		};
+		var chapai = {
+			name:"小米智能插排",
+			count: 3
+		};
+		var zhentou = {
+			name:"小米枕头",
+			count: 3
+		};
+		var zipaigan = {
+			name:"小米蓝牙自拍杆",
+			count: 3
+		};
+		var four = new Array();
+		four.push(yangshenghu);
+		four.push(yaokao);
+		four.push(chapai);
+		four.push(zhentou);
+		four.push(zipaigan);
+
+		var maojin = {
+			name:"小米毛巾",
+			count: 6
+		};
+		var jianya1 = {
+			name:"减压用品",
+			count: 5
+		};
+		var jianya2 = {
+			name:"enter枕头",
+			count: 5
+		};
+		var five = new Array();
+		five.push(maojin);
+		five.push(jianya1);
+		five.push(jianya2);
+
+		var cash_mid = {
+			name:"现金红包（0-199）",
+			count: 3
+		};
+		var xianjinMid = new Array();
+		xianjinMid.push(cash_mid);
+
+		var cash_sml = {
+			name:"现金红包（0-99）",
+			count: 5
+		};
+		var xianjinSml = new Array();
+		xianjinSml.push(cash_sml);
+
+		var guaguale = {
+			name:"刮刮乐",
+			count: 5
+		};
+		var anwei = new Array();
+		anwei.push(guaguale);
+
+		localStorage.setItem("one", JSON.stringify(one));
+		localStorage.setItem("two", JSON.stringify(two));
+		localStorage.setItem("three", JSON.stringify(three));
+		localStorage.setItem("four", JSON.stringify(four));
+		localStorage.setItem("five", JSON.stringify(five));
+		localStorage.setItem("xianjinMid", JSON.stringify(xianjinMid));
+		localStorage.setItem("xianjinSml", JSON.stringify(xianjinSml));
+		localStorage.setItem("anwei", JSON.stringify(anwei));
+	}
+</script>
+
+</body>
+</html>

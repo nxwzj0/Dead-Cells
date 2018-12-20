@@ -1,0 +1,891 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+<title>2019年OCC年会</title>
+
+<script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<style>
+	*, :after, :before {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	body {
+		background: url(images/bg0_1.jpg) no-repeat;
+		background-size:100% 100%;
+		background-attachment:fixed;
+	}
+	td {
+		background-position: center;
+	}
+	main {
+		padding-top: 3em;
+		height: 800px;
+	}
+	table {
+		border-spacing: 0;
+		border-collapse: collapse;
+		text-align: center;
+		width: 100%;
+		height: 100%;
+	}
+	.draw {
+		width: 850px;
+		height: 850px;
+		margin: 0 0 0 530px;
+		padding:70px 60px 60px 70px;
+		background-image: url(images/bg.png);
+		background-repeat: no-repeat;
+		background-size: 100%;
+	}
+	.draw .item {
+		width: 150px;
+		height: 150px;
+		background-image: url(images/bg1.png);
+		background-repeat: no-repeat;
+		background-size: 220px 220px;
+	}
+	.draw .centerItem {
+		width: 150px;
+		height: 150px;
+		background-image: url(images/bg3.png);
+		background-repeat: no-repeat;
+		background-size: 200px 200px;
+	}	
+	.draw .item.active {
+		background-image: url(images/bg2.png) !important;
+		background-repeat: no-repeat;
+		background-size: 220px 220px;
+	}	
+	.draw .img {
+		display: table-cell;
+		width: 235px;
+		height: 61px;
+		vertical-align: middle;
+		text-align: center;
+	}	
+	.draw .img img {
+		vertical-align: top;
+	}	
+	.draw .gap {
+		width: 5px;
+	}	
+	.draw .gap-2 {
+		height: 5px;
+	}	
+	.draw .name {
+		display: block;
+		margin-top: 10px;
+		font-size: 14px;
+	}	
+	.draw .draw-btn {
+		display: block;
+		height: 150px;
+		line-height: 150px;
+		border-radius: 20px;
+		font-size: 25px;
+		font-weight: 700;
+		text-decoration: none;
+		background-image: url(images/bg3.png);
+		background-repeat: no-repeat;
+		background-size: 100%;
+	}
+    .disabled {
+		background-image: url(images/bg4.png) !important;
+    }
+    #infoChild {
+    	position: absolute;
+	    left: 650px;
+	    top: 200px;
+    }
+	#showInfo {
+		width: 700px;
+	    height: 100px;
+	    left: 605px;
+	    font-size: 70px;
+	    color: springgreen;
+	    position: absolute;
+	    text-align: center;
+	}
+    #info {
+    	position: absolute;
+	    z-index: 999;
+	    top: 0;
+	    width: 100%;
+	    height: 100%;
+	    background: rgba(0, 0, 0, 0.5);
+    }
+	#logo {
+        font-weight: 600;
+        font-size: 28px;
+        font-family: "黑体";
+        color: #8c888b;
+        background: -webkit-linear-gradient(45deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
+        -moz-linear-gradient(45deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
+        -ms-linear-gradient(45deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
+        color: transparent;
+        -webkit-background-clip: text;
+        animation: ran 10s linear infinite;
+        cursor: pointer;
+    }
+    @keyframes ran {
+        from {
+            backgroud-position: 0 0;
+        }
+        to {
+            background-position: 2000px 0;
+        }
+    }
+    .main_bg {
+    	background:url(images/main_bg.jpg) no-repeat;
+    	height:938px;
+    	background-size: 100% 100%;
+    	background-attachment: fixed;
+    }
+	.main {
+		width:1920px;
+		position:relative;
+		margin:0 auto;
+	}
+	.num_mask {
+		height:184px;
+		width:740px;
+		position:absolute;
+		left:50%;
+		top:340px;
+		margin-left:-370px;
+		z-index:9;
+	}
+	.num_box {
+		height:450px;
+		width:750px;
+		position:absolute;
+		left:50%;
+		top:340px;
+		margin-left:-370px;
+		z-index:8;
+		overflow:hidden;
+		text-align:center;
+	}
+	.num {
+		background:url(images/num.png) top center repeat-y;
+		width:181px;
+		height:265px;
+		float:left;
+		margin-right:6px;
+	}
+	._num {
+		background:url(images/_num.png) top center repeat-y;
+		width:181px;
+		height:265px;
+		float:left;
+		margin-right:6px;
+	}
+	#casePage {
+		margin:0;
+		padding:0;
+		overflow:hidden;
+		position: absolute;
+  	 	top: 0;
+  	 	z-index: 10;
+	}
+	#close {
+		position: absolute;
+	    top: 0;
+	    right: 10px;
+	    background: #a09595;
+	    width: 20px;
+	    height: 20px;
+	    text-align: -webkit-center;
+	    z-index: 9999;
+	    cursor: pointer;
+	}
+	#spanHead {
+		width: 130px;
+		height: 40px;
+		background: #fff9007a;
+		padding: 5px;
+		border-radius: 10px 10px 0 0;
+	}
+	#contentDiv {
+		width: 300px;
+		height: 800px;
+		float: left;
+		background: #fff9007a;
+		padding: 5px;
+		display: none;
+	}
+</style>
+
+</head>
+<body ng-app="mainApp" ng-controller="indexCtrl">
+<main>
+	<div style="float: left;padding-left: 100px;">
+		<div id="spanHead">
+			<span class="navbar-brand" id="logo">奖品列表</span>
+		</div>
+		<div id="contentDiv">
+			<div>一等奖</div>
+			<div id="cash_big">现金红包（200 - 499）……<span>2</span></div>
+			<br>
+			<div>二等奖</div>
+			<div id="shouhuan">小米手环……<span>3</span></div>
+			<div id="taideng">小米台灯……<span>3</span></div>
+			<br>
+			<div>三等奖</div>
+			<div id="tizhicheng">华为智能体脂秤……<span>5</span></div>
+			<div id="yinxiang">天猫精灵智能网络音箱……<span>5</span></div>
+			<div id="shuangjianbao">小米双肩包……<span>5</span></div>
+			<br>
+			<div>四等奖</div>
+			<div id="yangshenghu">养生壶……<span>3</span></div>
+			<div id="yaokao">小米腰靠……<span>3</span></div>
+			<div id="chapai">小米智能插排……<span>3</span></div>
+			<div id="zhentou">小米枕头……<span>3</span></div>
+			<div id="zipaigan">小米蓝牙自拍杆……<span>3</span></div>
+			<br>
+			<div>五等奖</div>
+			<div id="maojin">小米毛巾……<span>6</span></div>
+			<div id="jianya1">减压用品……<span>5</span></div>
+			<div id="jianya2">enter枕头……<span>5</span></div>
+			<br>
+			<div>二等现金奖</div>
+			<div id="cash_mid">现金红包（100 - 199）……<span>3</span></div>
+			<br>
+			<div>四等现金奖</div>
+			<div id="cash_sml">现金红包（10 - 99）……<span>5</span></div>
+			<br>
+			<div>安慰奖</div>
+			<div id="guaguale">刮刮乐……<span>5</span></div>
+		</div>
+	</div>
+	<div class="draw" id="lottery">
+		<table>
+			<tr>
+				<td id="0" class="item lottery-unit lottery-unit-0">
+					<div class="img">
+						<img src="images/img1.png" alt="">
+					</div>
+				</td>
+				<td class="gap"></td>
+				<td id="1" class="item lottery-unit lottery-unit-1">
+					<div class="img">
+						<img src="images/img2.png" alt="">
+					</div>
+				</td>
+				<td class="gap"></td>
+				<td id="2"  class="item lottery-unit lottery-unit-2">
+					<div class="img">
+						<img src="images/img3.png" alt="">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="gap-2" colspan="5"></td>
+			</tr>
+			<tr>
+				<td id="3"  class="item lottery-unit lottery-unit-3">
+					<div class="img">
+						<img src="images/img4.png" alt="">
+					</div>
+				</td>
+				<td class="gap"></td>
+				<td class="centerItem">
+				</td>
+				<td class="gap"></td>
+				<td id="4" class="item lottery-unit lottery-unit-4">
+					<div class="img">
+						<img src="images/img5.png" alt="">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="gap-2" colspan="5"></td>
+			</tr>
+			<tr>
+				<td id="5" class="item lottery-unit lottery-unit-5">
+					<div class="img">
+						<img src="images/img6.png" alt="">
+					</div>
+				</td>
+				<td class="gap"></td>
+				<td id="6" class="item lottery-unit lottery-unit-6">
+					<div class="img">
+						<img src="images/img7.png" alt="">
+					</div>
+				</td>
+				<td class="gap"></td>
+				<td id="7" class="item lottery-unit lottery-unit-7">
+					<div class="img">
+						<img src="images/img8.png" alt="">
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+</main>
+
+<!--Import Copyright -->
+
+<script type="text/javascript">
+	var entryFlg = true;
+	var max;
+	var min;
+
+	function initData() {
+		var one = JSON.parse(localStorage.getItem("one"));
+		var two = JSON.parse(localStorage.getItem("two"));
+		var three = JSON.parse(localStorage.getItem("three"));
+		var four = JSON.parse(localStorage.getItem("four"));
+		var five = JSON.parse(localStorage.getItem("five"));
+		var xianjinMid = JSON.parse(localStorage.getItem("xianjinMid"));
+		var xianjinSml = JSON.parse(localStorage.getItem("xianjinSml"));
+		var anwei = JSON.parse(localStorage.getItem("anwei"));
+
+		$("#cash_big").find("span").html(one[0].count);
+		if (one[0].count == 0) {
+			$("#0").addClass("disabled disabled_0");
+			disArr.push(parseInt(0));
+		}
+
+		$("#shouhuan").find("span").html(two[0].count);
+		$("#taideng").find("span").html(two[1].count);
+		if (two[0].count + two[1].count == 0) {
+			$("#1").addClass("disabled disabled_1");
+			disArr.push(parseInt(1));
+		}
+
+		$("#tizhicheng").find("span").html(three[0].count);
+		$("#yinxiang").find("span").html(three[1].count);
+		$("#shuangjianbao").find("span").html(three[2].count);
+		if (three[0].count + three[1].count + three[2].count == 0) {
+			$("#2").addClass("disabled disabled_2");
+			disArr.push(parseInt(2));
+		}
+
+		$("#yangshenghu").find("span").html(four[0].count);
+		$("#yaokao").find("span").html(four[1].count);
+		$("#chapai").find("span").html(four[2].count);
+		$("#zhentou").find("span").html(four[3].count);
+		$("#zipaigan").find("span").html(four[4].count);
+		if (four[0].count + four[1].count + four[2].count + four[3].count + four[4].count == 0) {
+			$("#3").addClass("disabled disabled_3");
+			disArr.push(parseInt(3));
+		}
+
+		$("#maojin").find("span").html(five[0].count);
+		$("#jianya1").find("span").html(five[1].count);
+		$("#jianya2").find("span").html(five[2].count);
+		if (five[0].count + five[1].count + five[2].count == 0) {
+			$("#4").addClass("disabled disabled_4");
+			disArr.push(parseInt(4));
+		}
+
+		$("#cash_mid").find("span").html(xianjinMid[0].count);
+		if (xianjinMid[0].count == 0) {
+			$("#5").addClass("disabled disabled_5");
+			disArr.push(parseInt(5));
+		}
+
+		$("#cash_sml").find("span").html(xianjinSml[0].count);
+		if (xianjinSml[0].count == 0) {
+			$("#6").addClass("disabled disabled_6");
+			disArr.push(parseInt(6));
+		}
+
+		$("#guaguale").find("span").html(anwei[0].count);
+		if (anwei[0].count == 0) {
+			$("#7").addClass("disabled disabled_7");
+			disArr.push(parseInt(7));
+		}
+	}
+
+	var disArr = new Array();
+
+	var lottery = {
+		index: -1, //当前转动到哪个位置，起点位置
+		count: 0, //总共有多少个位置
+		timer: 0, //setTimeout的ID，用clearTimeout清除
+		speed: 20, //初始转动速度
+		times: 0, //转动次数
+		cycle: 70, //转动基本次数：即至少需要转动多少次再进入抽奖环节
+		prize: -1, //中奖位置
+		init: function(id) {
+			if($('#' + id).find('.lottery-unit').length > 0) {
+				$lottery = $('#' + id);
+				$units = $lottery.find('.lottery-unit');
+				this.obj = $lottery;
+				this.count = $units.length;
+				$lottery.find('.lottery-unit.lottery-unit-' + this.index).addClass('active');
+				if ($lottery.find(".disabled").length == 8) {
+					return false;
+				}
+			};
+		},
+		roll: function() {
+			var index = this.index;
+			var count = this.count;
+			var lottery = this.obj;
+			$(lottery).find('.lottery-unit.lottery-unit-' + index).removeClass('active');
+			index += 1;
+			if(index > count - 1) {
+				index = 0;
+			};
+			if ($(lottery).find('.disabled_' + index).length == 0) {
+				$(lottery).find('.lottery-unit.lottery-unit-' + index).addClass('active');
+			} else {
+				index += 1;
+				for (; index < count; index++) {
+					if(index > count - 1) {
+						index = 0;
+					};
+					if ($(lottery).find('.disabled_' + index).length == 0) {
+						$(lottery).find('.lottery-unit.lottery-unit-' + index).addClass('active');
+						break;
+					}
+				}
+			}
+			this.index = index;
+			return false;
+		},
+		stop: function(index) {
+			this.prize = index;
+			return false;
+		}
+	};
+
+	function roll() {
+		lottery.times += 1;
+		lottery.roll(); //转动过程调用的是lottery的roll方法，这里是第一次调用初始化
+
+		if (lottery.times > lottery.cycle + 6 && lottery.prize == lottery.index) {
+			clearTimeout(lottery.timer);
+			getGift();
+			
+			lottery.prize = -1;
+			lottery.times = 0;
+			click = false;
+		} else {
+			if (lottery.times < lottery.cycle) {
+				lottery.speed -= 10;
+			} else if (lottery.times == lottery.cycle) {
+				var index;
+				var ran = Math.random();
+				if (ran < 0.03) {
+					index = 0;
+				} else {
+					if (ran < 0.12) {
+						index = 1;
+					} else {
+						if (ran < 0.35) {
+							index = 2;
+						} else {
+							if (ran < 0.58) {
+								index = 3;
+							} else {
+								if (ran < 0.82) {
+									index = 4;
+								} else {
+									if (ran < 0.87) {
+										index = 5;
+									} else {
+										if (ran < 0.94) {
+											index = 6;
+										} else {
+											index = 7;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				
+				while ($.inArray(index, disArr) >= 0) {
+					index = Math.random() * (lottery.count) | 0;
+				}
+				lottery.prize = index;
+			} else {
+				if (lottery.times > lottery.cycle + 6 && lottery.prize == lottery.index + 1) {
+					lottery.speed += 110;
+				} else {
+					lottery.speed += 20;
+				}
+			}
+			if (lottery.speed < 40) {
+				lottery.speed = 40;
+			};
+			lottery.timer = setTimeout(roll, lottery.speed);
+		}
+		return false;
+	}
+
+	var click = false;
+
+	window.onload = function() {
+		initData();
+		document.onclick = function() {
+			entryFlg = true;
+			$("#info").hide();
+			$("#showInfo").css("top", 0);
+			lotteryEnd();
+		}
+
+		document.onkeydown = function(e){ 
+			var ev = document.all ? window.event : e;
+			if (ev.keyCode == 116) {
+				return false;
+			}
+    		if (ev.keyCode == 13) {
+    			if (entryFlg) {
+    				if ($("#casePage").is(":hidden")) {
+						lottery.init('lottery');
+						if(click) {
+							return false;
+						} else {
+							qiaoguPlay();
+							lottery.speed = 100;
+							roll();
+							click = true;
+							return false;
+						}
+	    			} else {
+	    				$('#laohujiBtn').click();
+	    			}
+    			}
+    		}
+		}
+
+		$('#laohujiBtn').click(function() {
+			var u = 265;
+			if (isBegin) return false;
+			jinbiPlay();
+			huanhuPlay();
+			isBegin = true;
+			$(".num").css('backgroundPositionY',0);
+			var result = numRand();
+			var num_arr = (result + '').split('');
+			$(".numAction").each(function(index) {
+				var _num = $(this);
+				setTimeout(function() {
+					_num.animate({ 
+						backgroundPositionY: (u * 60) - (u * num_arr[index])
+					},{
+						duration: 6000 + index * 3000,
+						easing: "easeInOutCirc",
+						complete: function() {
+							if (index == 3) isBegin = false;
+						}
+					});
+				}, index * 300);
+			});
+		});	
+
+		$("#logo").click(function() {
+			$("#contentDiv").toggle();
+		});
+	};
+
+	window.onbeforeunload = function(e){     
+		var e = window.event||e;  
+		e.returnValue=("确定离开当前页面吗？");
+	}
+
+	function getGift() {
+		var index = $(".active").attr("id");
+		var result = goLottery(index);
+
+		huojiangPlay();
+		setTimeout(function() {
+			if (index == 0 || index == 5 || index == 6) {
+				$("#casePage").show();
+			} else {
+				$("#info").show();
+				var html = '';
+				html += '<div>'+ result +'</div>';
+				$("#showInfo").html(html);
+				$("#showInfo").animate({
+					top: '280px'
+				}, 800);
+			}
+		}, 2000);
+	}
+
+	function goLottery(index) {
+		var result;
+		if (index == 0) {
+			var one = JSON.parse(localStorage.getItem("one"));
+			max = 499;
+			min = 200;
+			var count = 0;
+			if (one[0].count > 0) {
+				result = one[0].name;
+				one[0].count = one[0].count - 1;
+				count = one[0].count;
+				$("#cash_big").find("span").html(one[0].count);
+				localStorage.setItem("one", JSON.stringify(one));
+			} 
+
+			if (count == 0) {
+				$("#0").addClass("disabled disabled_" + index);
+				disArr.push(parseInt(index));
+			}
+		} else if (index == 1) {
+			var two = JSON.parse(localStorage.getItem("two"));
+			entryFlg = false;
+			var count = 0;
+			var ram = Math.random() * 2 | 0;
+			if (two[ram].count > 0) {
+				result = two[ram].name;
+				two[ram].count = two[ram].count - 1;
+				count = two[0].count + two[1].count;
+
+				if (ram == 0) {
+					$("#shouhuan").find("span").html(two[0].count);
+				} else {
+					$("#taideng").find("span").html(two[1].count);
+				}
+				localStorage.setItem("two", JSON.stringify(two));
+			} else {
+				result = goLottery(index);
+				return result;
+			}
+
+			if (count == 0) {
+				$("#1").addClass("disabled disabled_" + index);
+				disArr.push(parseInt(index));
+			}
+		} else if (index == 2) {
+			var three = JSON.parse(localStorage.getItem("three"));
+			entryFlg = false;
+			var count = 0;
+			var ram = Math.random() * 3 | 0;
+			if (three[ram].count > 0) {
+				result = three[ram].name;
+				three[ram].count = three[ram].count - 1;
+				count = three[0].count + three[1].count + three[2].count;
+
+				if (ram == 0) {
+					$("#tizhicheng").find("span").html(three[0].count);
+				} else if (ram == 1) {
+					$("#yinxiang").find("span").html(three[1].count);
+				} else {
+					$("#shuangjianbao").find("span").html(three[2].count);
+				}
+				localStorage.setItem("three", JSON.stringify(three));
+			} else {
+				result = goLottery(index);
+				return result;
+			}
+
+			if (count == 0) {
+				$("#2").addClass("disabled disabled_" + index);
+				disArr.push(parseInt(index));
+			}
+		} else if (index == 3) {
+			var four = JSON.parse(localStorage.getItem("four"));
+			entryFlg = false;
+			var count = 0;
+			var ram = Math.random() * 5 | 0;
+			if (four[ram].count > 0) {
+				result = four[ram].name;
+				four[ram].count = four[ram].count - 1;
+				count = four[0].count + four[1].count + four[2].count + four[3].count + four[4].count;
+
+				if (ram == 0) {
+					$("#yangshenghu").find("span").html(four[0].count);
+				} else if (ram == 1) {
+					$("#yaokao").find("span").html(four[1].count);
+				} else if (ram == 2) {
+					$("#chapai").find("span").html(four[2].count);
+				} else if (ram == 3) {
+					$("#zhentou").find("span").html(four[3].count);
+				} else {
+					$("#zipaigan").find("span").html(four[4].count);
+				}
+				localStorage.setItem("four", JSON.stringify(four));
+			} else {
+				result = goLottery(index);
+				return result;
+			}
+			
+			if (count == 0) {
+				$("#3").addClass("disabled disabled_" + index);
+				disArr.push(parseInt(index));
+			}
+		} else if (index == 4) {
+			var five = JSON.parse(localStorage.getItem("five"));
+			entryFlg = false;
+			var count = 0;
+			var ram = Math.random() * 3 | 0;
+			if (five[ram].count > 0) {
+				result = five[ram].name;
+				five[ram].count = five[ram].count - 1;
+				count = five[0].count + five[1].count + five[2].count;
+
+				if (ram == 0) {
+					$("#maojin").find("span").html(five[0].count);
+				} else if (ram == 1) {
+					$("#jianya1").find("span").html(five[1].count);
+				} else {
+					$("#jianya2").find("span").html(five[2].count);
+				}
+				localStorage.setItem("five", JSON.stringify(five));
+			} else {
+				result = goLottery(index);
+				return result;
+			}
+			
+			if (count == 0) {
+				$("#4").addClass("disabled disabled_" + index);
+				disArr.push(parseInt(index));
+			}
+		} else if (index == 5) {
+			var xianjinMid = JSON.parse(localStorage.getItem("xianjinMid"));
+			max = 199;
+			min = 100;
+			var count = 0;
+			var count1 = xianjinMid[0].count;
+			if (count1 > 0) {
+				result = xianjinMid[0].name;
+				xianjinMid[0].count = xianjinMid[0].count - 1;
+				count = xianjinMid[0].count;
+				$("#cash_mid").find("span").html(xianjinMid[0].count);
+				localStorage.setItem("xianjinMid", JSON.stringify(xianjinMid));
+			}
+
+			if (count == 0) {
+				$("#5").addClass("disabled disabled_" + index);
+				disArr.push(parseInt(index));
+			}
+		} else if (index == 6) {
+			var xianjinSml = JSON.parse(localStorage.getItem("xianjinSml"));
+			max = 99;
+			min = 10;
+			var count = 0;
+			var count1 = xianjinSml[0].count;
+			if (count1 > 0) {
+				result = xianjinSml[0].name;
+				xianjinSml[0].count = xianjinSml[0].count - 1;
+				count = xianjinSml[0].count;
+				$("#cash_sml").find("span").html(xianjinSml[0].count);
+				localStorage.setItem("xianjinSml", JSON.stringify(xianjinSml));
+			}
+
+			if (count == 0) {
+				$("#6").addClass("disabled disabled_" + index);
+				disArr.push(parseInt(index));
+			}
+		} else if (index == 7) {
+			var anwei = JSON.parse(localStorage.getItem("anwei"));
+			entryFlg = false;
+			var count = 0;
+			var count1 = anwei[0].count;
+			if (count1 > 0) {
+				result = anwei[0].name;
+				anwei[0].count = anwei[0].count - 1;
+				count = anwei[0].count;
+				$("#guaguale").find("span").html(anwei[0].count);
+				localStorage.setItem("anwei", JSON.stringify(anwei));
+			}
+
+			if (count == 0) {
+				$("#7").addClass("disabled disabled_" + index);
+				disArr.push(parseInt(index));
+			}
+		} else {}
+
+		return result;
+	}
+
+	var isBegin = false;
+	function numRand() {
+		var rand = parseInt(Math.random() * (max - min + 1) + min);
+		if (rand > 100) {
+			$(".num").eq(0).addClass("numAction");
+		}
+		$(".num").eq(1).addClass("numAction");
+		$(".num").eq(2).addClass("numAction");
+		return rand;
+	}
+
+	function pageClose() {
+		$("#casePage").hide();
+		$(".num").css("background-position-y", 0);
+		isBegin = false;
+		$(".num").each(function() {
+			$(this).removeClass("numAction");
+		});
+		lotteryEnd();
+	}
+
+	function lotteryEnd() {
+		if ($(".item.disabled").length == 8) {
+			$("#jieshu")[0].play();
+		}
+	}
+
+	function playVideo() {
+		$("#chuChang")[0].play();
+		setTimeout(function() {
+			$("#chuChang")[0].pause();
+		}, 7000);
+	}
+
+	function jinbiPlay() {
+		$("#jinBi")[0].play();
+	}
+
+	function huanhuPlay() {
+		$("#huanhu")[0].play();
+	}
+
+	function huojiangPlay() {
+		$("#huojiang")[0].play();
+	}
+
+	function qiaoguPlay() {
+		$("#qiaogu")[0].play();
+	}
+</script>
+<div id='info' style = "display : none">
+	<div id="showInfo"></div>
+	<div id='infoChild'>
+		<img src="images/bg5.png">
+	</div>
+</div>
+<div id="casePage" style="display:none;">
+	<div id="close" onclick="pageClose();return false;">×</div>
+	<div class="main_bg">
+		<div class="main">
+		    <div id="res" style="text-align:center;color:#fff;padding-top:15px;"></div>
+		    <div class="num_mask"></div>
+		    <div class="num_box">
+				<div class="_num"></div>
+				<div class="num"></div>
+				<div class="num"></div>
+				<div class="num"></div>
+				<div id="laohujiBtn"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<video id="chuChang" preload="preload" src="chuchang.mp3" style="display: none;"></video>
+<video id="jinBi" preload="preload" src="jinbi.mp3" style="display: none;"></video>
+<video id="huanhu" preload="preload" src="huanhu.mp3" style="display: none;"></video>
+<video id="huojiang" preload="preload" src="huojiang1.mp3" style="display: none;"></video>
+<video id="jieshu" preload="preload" src="jieshu.mp3" style="display: none;"></video>
+<video id="qiaogu" preload="preload" src="qiaogu.mp3" style="display: none;"></video>
+<div id="videoDiv" onclick="playVideo();" style="width: 20px;height: 20px;background: #e7d234;position: absolute;bottom: 10px;right: 10px;"></div>
+</body>
+</html>
